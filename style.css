@@ -21,6 +21,10 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Box_alignment_i
   grid-template-columns: repeat(3, 1fr); 
 }
 
+.stack {
+  grid-template-columns: repeat(2, 1fr); 
+}
+
 .image {
   background-color: aliceblue;
   align-self: center;
