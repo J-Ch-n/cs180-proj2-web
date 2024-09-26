@@ -1,0 +1,721 @@
+<!-- Referenced https://www.freecodecamp.org/news/basic-html5-template-boilerplate-code-example/ for boilerplate. -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> CS180 Project 2 - Fun with Filters and Frequencies! </title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <h1> CS180 Project 2 - Fun with Filters and Frequencies! </h1>
+    <h2> Overview </h2>
+    
+    <p> 
+      This project explores how filters and frequencies interact in different and curious ways.
+    </p>
+
+    <h2> Part 1 Fun with Filters </h2>
+
+    <h3> Math of Gradient Magnitude </h3>
+
+    <p> 
+      To find the magnitude of a gradient, we first find the derivative of the image with respect to x and then the derivative of the image with respect to y. 
+      Second, we square both dx and dy and add them together. Finally, we take the L2 norm of this sum. All these calculations are done element by element.
+    </p>
+    
+    <h3> Part 1.1: Finite Difference Operator </h3>
+    
+    <p> 
+      In this section, I first convolved a partial derivative filter in the x direction with the cameraman image. Then, I convolved a partial derivative filter in the y direction
+      with the image. Here are the raw and binarize derivatives.
+    </p>
+    
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_x.png", width="400">
+          <figcaption class="caption"> Camera Man X Filter
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_x_bin.png", width="400">
+          <figcaption class="caption"> Camera Man X Filter Binarized
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_y.png", width="400">
+          <figcaption class="caption"> Camera Man Y Filter
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_y_bin.png", width="400">
+          <figcaption class="caption"> Camera Man Y Filter Binarized
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <p>
+      Here is the gradient magnitude.
+    </p>
+
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_grad.png", width="400">
+          <figcaption class="caption"> Camera Man Gradient Magnitude
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_grad_bin.png", width="400">
+          <figcaption class="caption"> Camera Man Gradient Magnitude Binarized
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h3> Part 1.2: Derivative of Gaussian (DoG) Filter </h3>
+    <h4> Blurred Finite Difference </h4>
+    <p> 
+      After applying the Guassian filter to the camera man image, I discovered that the image was blurred significantly.
+    </p>
+
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_gaus.png", width="400">
+          <figcaption class="caption"> Camera Man Gaussian Blurred
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <p>
+      With the Gaussian blurred derivative filters in x and y directions, I created another set of image edges. Here are the result. These are 
+      a lot smoother than the finite derivative filters. However, the general shape of the edges remain the same.
+    </p>
+
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_gaus_x.png", width="400">
+          <figcaption class="caption"> Camera Man X Finite Blur Filter
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_gaus_x_bin.png", width="400">
+          <figcaption class="caption"> Camera Man X Finite Blur Filter Binarized
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_gaus_y.png", width="400">
+          <figcaption class="caption"> Camera Man Y Finite Blur Filter
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_gaus_y_bin.png", width="400">
+          <figcaption class="caption"> Camera Man Y Finite Blur Filter Binarized 
+            <br>
+            Threshold: 0.2
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <p>
+      Here is the gradient magnitude. The results are of the same shape as the previous section's only a smoother contour.
+    </p>
+
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_gaus_grad.png", width="400">
+          <figcaption class="caption"> Camera Man Finite Blur Gradient Magnitude
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_gaus_grad_bin.png", width="400">
+          <figcaption class="caption"> Camera Man Finite Blur Gradient Magnitude Binarized
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h4> Derivative of Gaussian </h4>
+    <p> Description of DoG </p>
+
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_dog_x.png", width="400">
+          <figcaption class="caption"> Camera Man X DoG Filter
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_dog_x_bin.png", width="400">
+          <figcaption class="caption"> Camera Man X DoG Filter Binarized
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_dog_y.png", width="400">
+          <figcaption class="caption"> Camera Man Y DoG Filter
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_dog_y_bin.png", width="400">
+          <figcaption class="caption"> Camera Man Y DoG Filter Binarized 
+            <br>
+            Threshold: 0.2
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <p>
+      Here is the gradient magnitude. The results are of the same shape as the previous section's only a smoother contour.
+    </p>
+
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_dog_mag.png", width="400">
+          <figcaption class="caption"> Camera Man DoG Gradient Magnitude
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_dog_mag_bin.png", width="400">
+          <figcaption class="caption"> Camera Man DoG Gradient Magnitude Binarized 
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h4> Comparison </h4>
+
+    <p> The edges by blurred finite difference filter and derivatives of Gaussian are very similar besides some differences due to padding and noise. </p>
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_dog_mag_bin.png", width="400">
+          <figcaption class="caption"> Camera Man DoG Gradient Magnitude
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/cam_gaus_grad_bin.png", width="400">
+          <figcaption class="caption"> Camera Man Blurred Finite Guassian Gradient Magnitude
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h2> Part 2: Fun with Frequencies! </h2>
+
+    <h3> Part 2.1: Image Sharpening </h3>
+
+    <h4> Methods </h4>
+
+    <h5> Blurring </h5>
+
+    <p> 
+      To blur an image, I convolved a 2d Guassian filter with the origina image to get the low frequencies.
+    </p>
+
+    <h5> Sharpening </h5>
+
+    <p> 
+      To sharpen an image, I first blurred an image using the method mentioned above. Then, I substracted the low frequency layer from the original image to get the 
+      high frequency layer. Finally, I added the high frequency layer to the blurred image to get the sharpened image. The blurring and sharpening steps can be consolidated into one 
+      filter by applying the Gaussian fitler scaled by alpha subtracted from a unit pulse filter scaled by (1 + alpha). This way we can sharpen the image with only 1 filter.
+    </p>
+
+    <h4> Taj Mahal Results </h4>
+
+    <p> I used an alpha value of 0.8, a Gaussian sigma value of 5, and filter size of 20 to sharpen the Taj Mahal image. Here is a comparison between the original and the sharpedn image. </p>
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/taj_og.png", width="400">
+          <figcaption class="caption"> Taj Mahal Original
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/taj_sharp.png", width="400">
+          <figcaption class="caption"> Taj Mahal Sharpened
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h4> Blurry Rear View Mirror </h4>
+
+    <p> This is a blurry photo due to lack of sufficient lighting and unsteady camera. I attempted to sharpen the image. The blurriness was reduced. However, as expected, the shakiness of the photo did not change. </p>
+    
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/car_og.png", width="400">
+          <figcaption class="caption"> Rear View Mirror Original 
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/car_sharpened.png", width="400">
+          <figcaption class="caption"> Rear View Mirror Sharpened
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h4> Blur and Sharpen </h4>
+
+    <p> 
+      In this section, I intentionally blurred a photo of ferns canyon and sharpened it with my sharpening filter. The resharpened image did not come close to the quality of the original image. This 
+      might be due to the lossy nature of the Gaussian blur. In other words, sharpening a Gaussian blurred image cannot restore all information lost through the blurring process. 
+    </p>
+
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/fern_og.png", width="400">
+          <figcaption class="caption"> Fern Canyon Original
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/fern_blurred.png", width="400">
+          <figcaption class="caption"> Fern Canyon Blurred
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/fern_restored.png", width="400">
+          <figcaption class="caption"> Ferns Canyon Sharpened
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    
+    <h3> Part 2.2 </h3>
+
+    <h4> Methods</h4>
+    <p> 
+      In this section, I created a hybrid image by stitching together the low frequency layer of one image with the high frequency layer of another. I extracted low frequency 
+      layer through a Gaussian filter and high frequency layer through a Laplacian filter. My three attempts at creating hybrid images are listed below.
+    </p>
+
+    <h4> Sour and Guts </h4>
+
+    <p> 
+      Here I created a hybrid image of Olivia Rodrigo in her Sour and Guts eras. I took the low frequency from her Guts photoshoot and overlayed the high frequency from her Sour photoshoot on top. 
+      Up close, you can see the Sour era image and the Guts era image when you are far away.
+    </p>
+
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/sour_og.png", width="400">
+          <figcaption class="caption"> Sour Original 
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/guts_og.png", width="400">
+          <figcaption class="caption"> Guts Original
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/sour_guts.png", width="400">
+          <figcaption class="caption"> Combined Hybrid Image
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+    
+    <p> Below are the Fourier domain frequencies. </p>
+
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/sour_fft_og.png", width="400">
+          <figcaption class="caption"> Sour Original Fourier frequencies
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/guts_fft_og.png", width="400">
+          <figcaption class="caption"> Guts Original Fourier frequencies
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/sour_fft_high.png", width="400">
+          <figcaption class="caption"> Sour high frequency Fourier frequencies
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/guts_fft_low.png", width="400">
+          <figcaption class="caption"> Guts low frequency Fourier frequencies
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/sour_guts_fft.png", width="400">
+          <figcaption class="caption"> Hybrid image Fourier frequencies
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h4> Rainbow or Brown? </h4>
+
+    <p>
+      Here, I created a hybrid image between a rainbow trout and a brown trout. The low frequency layer came from the rainbow trout image, so you can see the rainbow trout from afar. 
+      You can see the brown trout when you are up close as the high frequencies came from the brown trout image. 
+    </p>
+
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/rb_og.png", width="400">
+          <figcaption class="caption"> Rainbow Trout Original 
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/br_og.png", width="400">
+          <figcaption class="caption"> Brown Trout Original
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/rb_br.png", width="400">
+          <figcaption class="caption"> Combined Hybrid Image
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h4> Elks! (Failed) </h4>
+
+    <p> 
+      Here, I attempted to create a hybrid between two elk photos taken at different time. In one photo, the elks are head bumping one another, whiel in the other photo, one the elks raises its head.
+      No matter which picture acted as the low frequency layer, the high frequency layer always disappeared. When I tried to blur the low frequency layer further, the background low frequency layer became
+      too blurred to be recognized. This was probability because the identification of elks required a lot of high frequency information, thus the low frequency layer cannot be blurred too much. However, once this 
+      the high frequency of the low frequency layer is retained, the high frequency layer had too much overlap with the low frequency layer thus disappearing from the hybrid result.
+    </p>
+
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/elk1_og.png", width="400">
+          <figcaption class="caption"> Elks Fighting 1 Original 
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/elk2_og.png", width="400">
+          <figcaption class="caption"> Elks Fighting 2 Original
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/elk12_fail.png", width="400">
+          <figcaption class="caption"> Combined Hybrid Image
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h2> Multi-resolution Blending and the Oraple journey </h2>
+    <h3> Part 2.3: Gaussian and Laplacian Stacks </h3>
+
+    <p> Here are some select Laplacian stack images for the apple and the orange. </p>
+
+    <div class=image_container> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/ls1.png", width="400">
+          <figcaption class="caption"> Apple (1)
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/ls2.png", width="400">
+          <figcaption class="caption"> Apple (2)
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/ls11.png", width="400">
+          <figcaption class="caption">Apple (11)
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/ols1.png", width="400">
+          <figcaption class="caption"> Orange (1)
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/ols2.png", width="400">
+          <figcaption class="caption"> Orange (2)
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/ols11.png", width="400">
+          <figcaption class="caption"> Orange (11)
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <p> Here is the result for blended orapple image. </p>
+
+    <div class="image_container blend"> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/ahyb.png", width="400">
+          <figcaption class="caption"> Apple Stack
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/ohyb.png", width="400">
+          <figcaption class="caption"> Orange Stack
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/aohyb.png", width="400">
+          <figcaption class="caption"> Combined Stack
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+
+    <h3> Part 2.4: Multiresolution Blending (a.k.a. the oraple!) </h3>
+    <hr />
+
+    <h4> Methods </h4>
+
+    <p> 
+      I first created Laplacian stacks for the first image, the second image, and the filter mask. Then at each layer of the stack, I convolved
+      each mask with both images to create two intermediate results. Then, I computed the average of the two masked images and collapsed the Laplacian 
+      stack to reveal the final result. Blending layer by layer smoothes out the connection between two images, allowing for an elegant transition from 
+      one image to another. 
+    </p>
+
+    <h4> Orapple </h4>
+
+    <div class="image_container blend"> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/apple.jpeg", width="400">
+          <figcaption class="caption"> Apple 
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/orange.jpeg", width="400">
+          <figcaption class="caption"> Orange 
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/orapple.png", width="400">
+          <figcaption class="caption"> Combined Orapple
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h4> Thunder Storm at Eel River? </h4>
+
+    <p> I changed the serene evening sky of the eel river into show of lightning. </p>
+    <div class="image_container blend"> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/eel_river.png", width="400">
+          <figcaption class="caption"> Eel River Original
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/lightning.png", width="400">
+          <figcaption class="caption"> Lightning Original
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/eel_river_lightning.png", width="400">
+          <figcaption class="caption"> Blended Eel River and Lightning
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+    
+    <h4> Golden or Rainbow? </h4>
+
+    <p> I blended together 3/4 of a golden trout and 1/4 of a rainbow trout together.</p>
+    <div class="image_container blend"> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/golden_og.png", width="400">
+          <figcaption class="caption"> Golden Trout Original
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/rainbow_og.png", width="400">
+          <figcaption class="caption"> Rainbow Trout Original
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/rainden_trout.png", width="400">
+          <figcaption class="caption"> Blended Golden and Rainbow Trout
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h5> Laplacian Stack </h5>
+
+    <div class="image_container blend"> 
+      <div class=image>
+        <figure> 
+          <img src="./out_path/gd_ls.png", width="400">
+          <figcaption class="caption"> Apple 
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/rb_ls.png", width="400">
+          <figcaption class="caption"> Orange 
+          </figcaption>
+        </figure>
+      </div>
+      <div class=image>
+        <figure> 
+          <img src="./out_path/rbgs_ls.png", width="400">
+          <figcaption class="caption"> Combined Orapple
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  <h2> Bells and Whistles </h2>
+
+    <h3> Color Enhanced Images </h3> 
+      <p> 
+        I explored an additional three combinations of color vs gray image hybridizations. Here, I will present the hybridization with gray image 1, color image2; color image 1, color image 2;
+        and color image 1, gray image 2. 
+      </p>
+
+      <div class="image_container bell"> 
+        <div class=image>
+          <figure> 
+            <img src="./out_path/sour_c_guts_c.png", width="400">
+            <figcaption class="caption"> Colored sour colored Guts (1)
+            </figcaption>
+          </figure>
+        </div>
+        <div class=image>
+          <figure> 
+            <img src="./out_path/sour_c_guts_g.png", width="400">
+            <figcaption class="caption"> Colored sour gray Guts (2)
+            </figcaption>
+          </figure>
+        </div>
+        <div class=image>
+          <figure> 
+            <img src="./out_path/sour_g_guts_c.png", width="400">
+            <figcaption class="caption"> Gray sour colored Guts (3)
+            </figcaption>
+          </figure>
+        </div>
+        <div class=image>
+          <figure> 
+            <img src="./out_path/sour_guts.png", width="400">
+            <figcaption class="caption"> Gray sour gray Guts (4)
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <p> Image (1) and (3) are pretty similar because the purple color of the low frequency is very overpowering, so it draws 
+        attention to the low frequency at short and long distances. Thus, the hybrid effects in (1) and (3) are not very good. 
+        Comparing (2) and (4), we can see that the all gray scale hybrid image's Sour era details are too faint to be eye-catching at 
+        close range. Since the major details that signify the Sour era are the colored stickers, allowing the Sour's high frequency color 
+        to come through is significantly better than the all gray scale hybridization. 
+      </p>
+
+    <h3> Colored Blending Images </h3>
+      <p> 
+        I have used color for blending the orange and the apple. It has enhanced the appearance of the resulting orapple. 
+      </p>
+  </body>
+</html>
